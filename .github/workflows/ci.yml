@@ -79,7 +79,13 @@ jobs:
           left = pd.read_csv('results_rerun/smoke/runs.csv').sort_values(['dataset', 'method', 'seed']).reset_index(drop=True)
           right = pd.read_csv('results_baseline/runs.csv').sort_values(['dataset', 'method', 'seed']).reset_index(drop=True)
 
-          drop_cols = [c for c in ['timestamp_utc'] if c in left.columns]
+          # Runtime and timestamp columns are expected to vary across CI runs.
+          nondeterministic_cols = [
+              'timestamp_utc',
+              'selection_runtime_sec',
+              'best_fit_runtime_sec',
+          ]
+          drop_cols = [c for c in nondeterministic_cols if c in left.columns]
           left = left.drop(columns=drop_cols)
           right = right.drop(columns=drop_cols)
 

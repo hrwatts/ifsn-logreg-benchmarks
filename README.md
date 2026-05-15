@@ -167,3 +167,38 @@ split only. The missing-value token `?` is treated as its own category.
 ## How To Cite
 
 Use `CITATION.cff` for the current software citation record.
+
+When reporting benchmark outcomes, cite both:
+
+- the software artifact (`CITATION.cff`)
+- the method papers used for algorithmic context
+- the underlying dataset sources (see `results/*/dataset_manifest.json`)
+
+### Method References (BibTeX)
+
+```bibtex
+@article{kirkby2021inversion,
+  title={An Inversion-Free Subsampling Newton's Method for Logistic Regression},
+  author={Kirkby, J. Lars and Nguyen, Dang H. and Nguyen, Duy},
+  journal={Statistical Papers},
+  volume={63},
+  pages={943--963},
+  year={2022},
+  doi={10.1007/s00362-021-01262-3}
+}
+
+@article{wang2018optimal,
+  title={Optimal Subsampling for Large Sample Logistic Regression},
+  author={Wang, HaiYing and Zhu, Rong and Ma, Ping},
+  journal={Journal of the American Statistical Association},
+  volume={113},
+  number={522},
+  pages={829--844},
+  year={2018},
+  doi={10.1080/01621459.2017.1292914}
+}
+```
+
+If you are citing the theoretical background for logistic regression itself,
+consider also citing standard references such as Bishop (2006) and Hastie,
+Tibshirani, and Friedman (2009).
