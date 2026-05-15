@@ -1,0 +1,22 @@
+{
+  "breast_cancer": {
+    "source": "scikit-learn built-in breast cancer dataset",
+    "source_url": null,
+    "citation": "Breast Cancer Wisconsin (Diagnostic) [Dataset]. UCI Machine Learning Repository.",
+    "license": "See scikit-learn / UCI distribution terms.",
+    "sha256": null,
+    "parser_id": "sklearn_breast_cancer",
+    "target_column": "target",
+    "preprocess_mode": "numeric_standardize"
+  },
+  "mushroom": {
+    "source": "UCI Machine Learning Repository",
+    "source_url": "https://archive.ics.uci.edu/static/public/73/mushroom.zip",
+    "citation": "Mushroom [Dataset]. (1981). UCI Machine Learning Repository. https://doi.org/10.24432/C5959T.",
+    "license": "CC BY 4.0",
+    "sha256": "FACE32F32647E0D939F6233F36DD30DD5D619AE9F3F9B8E10BEA4AC7E1F60B1A",
+    "parser_id": "uci_mushroom_zip",
+    "target_column": "class",
+    "preprocess_mode": "categorical_dense_onehot_standardize"
+  }
+}

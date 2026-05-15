@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: "IFSN Sequential Subsampling"
+message: "If you use this benchmark artifact, please cite the software record and the underlying dataset sources."
+type: software
+authors:
+  - family-names: "Contributors"
+    given-names: "IFSN"
+license: "BSD-3-Clause"
+version: "0.2.0"
+date-released: "2026-05-14"
+keywords:
+  - logistic regression
+  - subsampling
+  - Newton method
+  - benchmarking
+preferred-citation:
+  type: article
+  title: "IFSN Sequential Subsampling: Reproducible Benchmarks for Binary Logistic Regression"
+  authors:
+    - family-names: "Contributors"
+      given-names: "IFSN"
+  year: 2026
+  note: "Software benchmark artifact and technical note. Update with DOI-backed publication metadata when available."

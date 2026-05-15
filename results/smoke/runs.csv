@@ -1,0 +1,4 @@
+suite,dataset,seed,method,family,solver_variant,sampling_scheme,subsample_size,selected_c,encoded_feature_count,val_log_loss,test_log_loss,test_roc_auc,test_accuracy,selection_runtime_sec,best_fit_runtime_sec,n_iter,converged
+smoke,breast_cancer,0,sklearn-lbfgs,sklearn,lbfgs,,,0.002932551319648094,30,0.28223273682930117,0.29201735137797036,0.9941860465116279,0.9217391304347826,0.0067235000000005485,0.0067235000000005485,15,1
+smoke,breast_cancer,0,ifsn-safe-fixed-s64,ifsn,safe,fixed,64,1.0,30,0.28097803523425935,0.289385284332712,0.9941860465116279,0.9304347826086956,0.6968363999999996,0.6968363999999996,200,0
+smoke,breast_cancer,0,ifsn-safe-fresh-s64,ifsn,safe,fresh,64,1.0,30,0.2829483805561698,0.29293373141560786,0.9941860465116279,0.9217391304347826,0.5171288999999994,0.5171288999999994,200,0

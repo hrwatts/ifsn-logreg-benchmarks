@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package and test deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
+      - name: Run pytest
+        run: python -m pytest
+
+  smoke-benchmark-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install benchmark stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[benchmark]
+      - name: Run smoke benchmark
+        run: |
+          python -m ifsn_logistic.benchmarks.run --suite smoke --seeds 0 1 --c-grid 1.0 --include-inference --inference-n-bootstrap 300
+      - name: Validate smoke artifacts
+        run: |
+          test -f results/smoke/runs.csv
+          test -f results/smoke/summary.csv
+          test -f results/smoke/summary.md
+          test -f results/smoke/summary_inference.csv
+          test -f results/smoke/summary_inference.md
+          test -f results/smoke/dataset_manifest.json
+          test -f results/smoke/environment.json
+      - name: Upload smoke baseline artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-baseline
+          path: results/smoke/
+
+  smoke-benchmark-repro:
+    needs: smoke-benchmark-baseline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install benchmark stack
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[benchmark]
+      - name: Re-run smoke benchmark
+        run: |
+          python -m ifsn_logistic.benchmarks.run --suite smoke --seeds 0 1 --c-grid 1.0 --include-inference --inference-n-bootstrap 300 --results-dir results_rerun
+      - name: Download baseline artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: smoke-baseline
+          path: results_baseline/
+      - name: Compare deterministic run fields
+        run: |
+          python - << 'PY'
+          import pandas as pd
+
+          left = pd.read_csv('results_rerun/smoke/runs.csv').sort_values(['dataset', 'method', 'seed']).reset_index(drop=True)
+          right = pd.read_csv('results_baseline/runs.csv').sort_values(['dataset', 'method', 'seed']).reset_index(drop=True)
+
+          drop_cols = [c for c in ['timestamp_utc'] if c in left.columns]
+          left = left.drop(columns=drop_cols)
+          right = right.drop(columns=drop_cols)
+
+          pd.testing.assert_frame_equal(left, right, check_dtype=False, atol=1e-12, rtol=1e-12)
+          print('Reproducibility check passed.')
+          PY

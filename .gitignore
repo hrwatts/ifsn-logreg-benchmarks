@@ -1,0 +1,13 @@
+__pycache__/
+.pytest_cache/
+pytest-cache-files-*/
+*.pyc
+artifacts/
+data/cache/
+.cache-mushroom/
+.cache-mushroom.zip
+.bench_deps/
+.venv-bench/
+dist/
+build/
+.venv/

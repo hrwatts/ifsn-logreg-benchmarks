@@ -1,0 +1,4 @@
+dataset,method,runs,mean_log_loss,std_log_loss,mean_roc_auc,std_roc_auc,mean_accuracy,std_accuracy,mean_runtime_sec,std_runtime_sec,mean_n_iter,std_n_iter,convergence_rate
+breast_cancer,ifsn-safe-fixed-s64,1,0.289385284332712,0.0,0.9941860465116279,0.0,0.9304347826086956,0.0,0.6968363999999996,0.0,200.0,0.0,0.0
+breast_cancer,ifsn-safe-fresh-s64,1,0.29293373141560786,0.0,0.9941860465116279,0.0,0.9217391304347826,0.0,0.5171288999999994,0.0,200.0,0.0,0.0
+breast_cancer,sklearn-lbfgs,1,0.29201735137797036,0.0,0.9941860465116279,0.0,0.9217391304347826,0.0,0.0067235000000005485,0.0,15.0,0.0,1.0
